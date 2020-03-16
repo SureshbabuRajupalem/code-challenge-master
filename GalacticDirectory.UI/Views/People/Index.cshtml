@@ -1,0 +1,72 @@
+﻿@model X.PagedList.IPagedList<GalacticDirectory.UI.Models.PeopleModel>
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewData["Title"] = "People Details";
+}
+
+<div>
+    <h4>People Details</h4>
+    <hr />
+    @if (Model.Count() > 0)
+    {
+        <table id="myTable" class="table" cellspacing="0">
+            <thead>
+                <tr>
+                    @foreach (var property in Model.GetType().GetGenericArguments()[0].GetProperties())
+                    {
+                        @if (property.Name == "Films" || property.Name == "Species"
+                        || property.Name == "Vehicles" || property.Name == "Starships"
+                        || property.Name =="strRowState"||property.Name =="intConcurrencyId"
+                        ||property.Name =="strClientID"||property.Name =="ModifiedFields")
+                        {
+
+                        }
+                        else
+                        {
+                            <th>@property.Name</th>
+                        }
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    @foreach (var property in item.GetType().GetProperties())
+                    {
+                        @if (property.Name == "Films" || property.Name == "Species"
+                                || property.Name == "Vehicles" || property.Name == "Starships"
+                                || property.Name =="strRowState"||property.Name =="intConcurrencyId"
+                        ||property.Name =="strClientID"||property.Name =="ModifiedFields")
+                        {
+
+                        }
+                        else
+                        {
+                            <td>@property.GetValue(item)</td>
+                        }
+                    }
+                    <td> @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) </td>
+                    <td> @Html.ActionLink("Update", "Update", new { /* id = Model.PrimaryKey */ }) </td>
+                    <td> @Html.ActionLink("Delete", "Delete", new { /* id = Model.PrimaryKey */ }) </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <br />
+    }
+
+    else
+    {
+        <span> No records found!!</span>
+    }
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager((IPagedList)Model,page => Url.Action("Index", new { page }))
+
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

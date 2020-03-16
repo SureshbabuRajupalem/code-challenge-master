@@ -1,0 +1,25 @@
+<h1>{{$ctrl.person.name}}</h1>
+
+<ul class="specs">
+  <li>
+    <span>Basic Info</span>
+    <dl>
+      <dt>Height</dt>
+      <dd>{{$ctrl.person.height}}</dd>
+      <dt>Mass</dt>
+      <dd>{{$ctrl.person.mass}}</dd>
+      <dt>Hair Color</dt>
+      <dd>{{$ctrl.person.hair_color}}</dd>
+      <dt>Hair Color</dt>
+      <dd>{{$ctrl.person.skin_color}}</dd>
+      <dt>Eye Color</dt>
+      <dd>{{$ctrl.person.eye_color}}</dd>
+      <dt>Birth Year</dt>
+      <dd>{{$ctrl.person.birth_year}}</dd>
+      <dt>Gender</dt>
+      <dd>{{$ctrl.person.gender}}</dd>
+    </dl>
+  </li>
+</ul>
+
+<a href="#!/people/{{$ctrl.person.id}}/edit" class="btn btn-primary btn-lg" role="button">Edit</a>

@@ -1,0 +1,19 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <p>
+        Search:
+        <input ng-model="$ctrl.query" />
+      </p>
+    </div>
+    <div class="col-md-10">
+      <ul class="people">
+        <li ng-repeat="person in $ctrl.people | filter:$ctrl.query"
+            class="thumbnail person-list-item">
+          <a href="#!/people/{{person.id}}">{{person.name}}</a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>
