@@ -11,6 +11,8 @@ using Polly;
 using GalacticDirectory.UI.Models.Helpers;
 using GalacticDirectory.DAL.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GalacticDirectory.UI
 {
@@ -45,6 +47,19 @@ namespace GalacticDirectory.UI
                 TimeSpan.FromSeconds(5),
                 TimeSpan.FromSeconds(10) })
             );
+            services.AddResponseCaching(options =>
+            {
+                options.MaximumBodySize = 1024;
+                options.UseCaseSensitivePaths = true;
+            });
+            services.AddMvc(options =>
+            {
+                options.CacheProfiles.Add("default", new CacheProfile
+                {
+                    Duration = 60,
+                    Location = ResponseCacheLocation.Any
+                });
+            });
 
         }
 
@@ -62,6 +77,7 @@ namespace GalacticDirectory.UI
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseResponseCaching();
 
             app.UseAuthorization();
 
@@ -70,6 +86,19 @@ namespace GalacticDirectory.UI
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=People}/{action=Index}/{id?}");
+            });
+            app.Use(async (context, next) =>
+            {
+                context.Response.GetTypedHeaders().CacheControl =
+                    new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
+                    {
+                        Public = true,
+                        MaxAge = TimeSpan.FromSeconds(60)
+                    };
+                context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.Vary] =
+                    new string[] { "Accept-Encoding" };
+
+                await next();
             });
         }
     }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GalacticDirectory.DAL.EFModels
 {
-    public class VehicleModelcs
+    public class VehicleModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

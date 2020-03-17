@@ -1,4 +1,4 @@
-﻿@model X.PagedList.IPagedList<GalacticDirectory.UI.Models.PeopleModel>
+﻿@model X.PagedList.IPagedList<GalacticDirectory.DAL.EFModels.PeopleModel>
 @using X.PagedList;
 @using X.PagedList.Mvc.Core;
 <link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
@@ -40,7 +40,8 @@
                         @if (property.Name == "Films" || property.Name == "Species"
                                || property.Name == "Vehicles" || property.Name == "Starships"
                                || property.Name == "strRowState" || property.Name == "intConcurrencyId"
-                       || property.Name == "strClientID" || property.Name == "ModifiedFields")
+                       || property.Name == "strClientID" || property.Name == "ModifiedFields"
+                       || property.Name == "Created" || property.Name == "Edited")
                         {
 
                         }
@@ -51,7 +52,7 @@
                     }
                     <td> @Html.ActionLink("Edit", "EditPeople", new {  id = item.People_ID }) </td>
                     <!--<td> @Html.ActionLink("Update", "Update", new { /* id = Model.PrimaryKey */ }) </td>-->
-                    <td> @Html.ActionLink("Delete", "Delete", new {  id = item.People_ID }) </td>
+                    <td> @Html.ActionLink("Delete", "DeletePeople", new {  id = item.People_ID }) </td>
                 </tr>
                 }
             </tbody>

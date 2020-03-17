@@ -7,11 +7,11 @@ namespace GalacticDirectory.UI.Models
     {
        
         public int ID { get; set; }
-        public int PeopleID { get; set; }
+      //  public int PeopleID { get; set; }
         public string Name { get; set; }
-        public Film(int peopleid, int id,string name)
+        public Film( int id,string name)//int peopleid,
         {
-            PeopleID = peopleid;
+           // PeopleID = peopleid;
             ID = id;
             Name = name;
         }

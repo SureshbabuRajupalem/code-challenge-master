@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GalacticDirectory.DAL.Migrations
 {
     [DbContext(typeof(StarWarDBContext))]
-    [Migration("20200317050204_galacticmigration")]
-    partial class galacticmigration
+    [Migration("20200317145909_Galactic")]
+    partial class Galactic
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,6 +85,42 @@ namespace GalacticDirectory.DAL.Migrations
                     b.HasKey("People_ID");
 
                     b.ToTable("People");
+                });
+
+            modelBuilder.Entity("GalacticDirectory.DAL.EFModels.SpeciesModel", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PeopleID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Species");
+                });
+
+            modelBuilder.Entity("GalacticDirectory.DAL.EFModels.VehicleModel", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PeopleID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Vehicles");
                 });
 #pragma warning restore 612, 618
         }

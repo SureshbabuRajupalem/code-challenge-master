@@ -8,7 +8,7 @@ namespace GalacticDirectory.UI.Models
     public class PeopleModel
     {
 
-        public int People_ID { get; set; }
+       // public int People_ID { get; set; }
         public string Name { get; set; }
         public string Height { get; set; }
         public string Mass { get; set; }

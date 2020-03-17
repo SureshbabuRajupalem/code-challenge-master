@@ -12,6 +12,8 @@ namespace GalacticDirectory.DAL.Data
 
         public DbSet<PeopleModel> People { get; set; }
         public DbSet<FilmModel> Films { get; set; }
+        public DbSet<SpeciesModel> Species { get; set; }
+        public DbSet<VehicleModel> Vehicles { get; set; }
         public StarWarDBContext(DbContextOptions<StarWarDBContext> options):base(options)
         {
             Database.Migrate();
