@@ -1,0 +1,13 @@
+ Enabling Migration To create table in Database through code
+
+0. First Change server=FQSPG72\\MSSQLSERVER02; to the local DB Server Instance name in all appsettings.json files.
+
+1. Click on the ‘Tools’ in the menu bar of visual studio.
+
+2. Select NuGet Packet Manager>Packet Manager Console.
+
+3. Write ‘add-migration’ and name anything you want to write.
+
+4. Then write ‘Update-database’ it will create a ‘Migration’ folder which contains Migration.cs file
+
+5. You will see in SQL server management studio database automatically Database Name ‘StarWarsDB’ and Two tables People and Films  are created.
