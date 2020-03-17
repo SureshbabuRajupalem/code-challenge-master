@@ -7,6 +7,9 @@ using GalacticDirectory.UI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using GalacticDirectory.DAL;
+using GalacticDirectory.UI.Data;
+using GalacticDirectory.DAL.Data;
 
 namespace GalacticDirectory.UI.Models.Helpers
 {
@@ -17,21 +20,27 @@ namespace GalacticDirectory.UI.Models.Helpers
         private string BaseUri = "/api/people/";
         private string Uri = string.Empty;
         private List<PeopleModel> _PeopleDetails;
-        private List<Films> _Films;
+        private List<Film> _Films;
+        //private List<Species> _Species;
+       // private List<Starship> _Starship;
+       // private List<Vehicle> _Vehicle;
         private static int TotalPeopleCount;
         private int pageSize = 0;
         private int p_ID;
-
-
+        private BindEntityToEFModel _EntityToModel;
+        private readonly StarWarDBContext _SWDBContext;
+                          
         public GalacticAPIHelper()
         {
             
         }
-        public GalacticAPIHelper(IHttpClientFactory httpClientFactory)
+        public GalacticAPIHelper(IHttpClientFactory httpClientFactory, StarWarDBContext SWDBContext)
         {
+            _SWDBContext = SWDBContext;
             _httpClientFactory = httpClientFactory;
             _PeopleDetails = new List<PeopleModel>();
-            _Films = new List<Films>();
+            _Films = new List<Film>();
+         
 
         }
         public async Task<List<PeopleModel>> GetPeopleDetails()
@@ -46,11 +55,7 @@ namespace GalacticDirectory.UI.Models.Helpers
 
             var result = await client.GetAsync(Uri);
 
-
-
-            //if (Uri.IndexOf("?") > 0)
-            //    Uri = Uri.Substring(0, Uri.IndexOf("?"));
-
+      
             if (result.IsSuccessStatusCode)
             {
                 // Read all of the response and deserialise it into an instace of
@@ -65,9 +70,7 @@ namespace GalacticDirectory.UI.Models.Helpers
 
                     if (!string.IsNullOrEmpty(rootModel.next) && rootModel.next.IndexOf("?") > 0)
                     {
-                        //var ct = rootModel.next.IndexOf("?");
-                        //var lnt = rootModel.next.Length;        
-                        //var substr= rootModel.next.Substring(ct, lnt-ct);
+                   
                         Uri = string.Empty;
                         Uri = BaseUri + rootModel.next.Substring(rootModel.next.IndexOf("?"), rootModel.next.Length - rootModel.next.IndexOf("?"));
 
@@ -83,9 +86,24 @@ namespace GalacticDirectory.UI.Models.Helpers
                         rootModel.results[res].People_ID = p_ID;
                         for (int i = 0; i <= rootModel.results[res].Films.Length - 1; i++)
                         {
-                            _Films.Add(new Films(rootModel.results[res].People_ID, i + 1, rootModel.results[res].Films[i]));
-                            
+                            _Films.Add(new Film(rootModel.results[res].People_ID, i + 1, rootModel.results[res].Films[i]));
+
                         }
+                        //for (int i = 0; i <= rootModel.results[res].Species.Length - 1; i++)
+                        //{
+                        //    _Species.Add(new Species(rootModel.results[res].People_ID, i + 1, rootModel.results[res].Species[i]));
+
+                        //}
+                        //for (int i = 0; i <= rootModel.results[res].Starships.Length - 1; i++)
+                        //{
+                        //    _Starship.Add(new Starship(rootModel.results[res].People_ID, i + 1, rootModel.results[res].Starships[i]));
+
+                        //}
+                        //for (int i = 0; i <= rootModel.results[res].Vehicles.Length - 1; i++)
+                        //{
+                        //    _Vehicle.Add(new Vehicle(rootModel.results[res].People_ID, i + 1, rootModel.results[res].Vehicles[i]));
+
+                        //}
 
                     }
                     TotalPeopleCount -= rootModel.results.Count();
@@ -98,15 +116,15 @@ namespace GalacticDirectory.UI.Models.Helpers
                     await GetPeopleDetails();
                     // Uri = string.Empty;
                 }
-                var peoples = _PeopleDetails;
-
-                for(int peo = 0;peo <= peoples.Count-1;peo++)
-                {
-                    for (int i = 0; i <= peoples[peo].Films.Length-1; i++)
-                    {
-                        _Films.Add(new Films(peoples[peo].People_ID, i + 1, peoples[peo].Films[i]));
-                    }
-                }
+                // var peoples = _PeopleDetails;
+                //for(int peo = 0;peo <= peoples.Count-1;peo++)
+                //{
+                //    for (int i = 0; i <= peoples[peo].Films.Length-1; i++)
+                //    {
+                //        _Films.Add(new Films(peoples[peo].People_ID, i + 1, peoples[peo].Films[i]));
+                //    }
+                //}
+                _EntityToModel = new BindEntityToEFModel(_PeopleDetails,_Films, _SWDBContext);
                 return _PeopleDetails;
             }
             return null;

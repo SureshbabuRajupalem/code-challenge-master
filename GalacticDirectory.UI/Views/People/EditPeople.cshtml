@@ -1,0 +1,93 @@
+﻿@model GalacticDirectory.DAL.EFModels.PeopleModel
+
+@{
+    ViewData["Title"] = "Edit People";
+}
+
+<h1>EditPeople</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditPeople">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="People_ID" class="control-label"></label>
+                <input asp-for="People_ID" class="form-control" />
+                <span asp-validation-for="People_ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Height" class="control-label"></label>
+                <input asp-for="Height" class="form-control" />
+                <span asp-validation-for="Height" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mass" class="control-label"></label>
+                <input asp-for="Mass" class="form-control" />
+                <span asp-validation-for="Mass" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hair_color" class="control-label"></label>
+                <input asp-for="Hair_color" class="form-control" />
+                <span asp-validation-for="Hair_color" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Skin_color" class="control-label"></label>
+                <input asp-for="Skin_color" class="form-control" />
+                <span asp-validation-for="Skin_color" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Eye_color" class="control-label"></label>
+                <input asp-for="Eye_color" class="form-control" />
+                <span asp-validation-for="Eye_color" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Birth_year" class="control-label"></label>
+                <input asp-for="Birth_year" class="form-control" />
+                <span asp-validation-for="Birth_year" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label"></label>
+                <input asp-for="Gender" class="form-control" />
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Homeworld" class="control-label"></label>
+                <input asp-for="Homeworld" class="form-control" />
+                <span asp-validation-for="Homeworld" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Created" class="control-label"></label>
+                <input asp-for="Created" class="form-control" />
+                <span asp-validation-for="Created" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Edited" class="control-label"></label>
+                <input asp-for="Edited" class="form-control" />
+                <span asp-validation-for="Edited" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Url" class="control-label"></label>
+                <input asp-for="Url" class="form-control" />
+                <span asp-validation-for="Url" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

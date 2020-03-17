@@ -38,9 +38,9 @@
                     @foreach (var property in item.GetType().GetProperties())
                     {
                         @if (property.Name == "Films" || property.Name == "Species"
-                                || property.Name == "Vehicles" || property.Name == "Starships"
-                                || property.Name =="strRowState"||property.Name =="intConcurrencyId"
-                        ||property.Name =="strClientID"||property.Name =="ModifiedFields")
+                               || property.Name == "Vehicles" || property.Name == "Starships"
+                               || property.Name == "strRowState" || property.Name == "intConcurrencyId"
+                       || property.Name == "strClientID" || property.Name == "ModifiedFields")
                         {
 
                         }
@@ -49,9 +49,9 @@
                             <td>@property.GetValue(item)</td>
                         }
                     }
-                    <td> @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) </td>
-                    <td> @Html.ActionLink("Update", "Update", new { /* id = Model.PrimaryKey */ }) </td>
-                    <td> @Html.ActionLink("Delete", "Delete", new { /* id = Model.PrimaryKey */ }) </td>
+                    <td> @Html.ActionLink("Edit", "EditPeople", new {  id = item.People_ID }) </td>
+                    <!--<td> @Html.ActionLink("Update", "Update", new { /* id = Model.PrimaryKey */ }) </td>-->
+                    <td> @Html.ActionLink("Delete", "Delete", new {  id = item.People_ID }) </td>
                 </tr>
                 }
             </tbody>
@@ -67,6 +67,4 @@
     @Html.PagedListPager((IPagedList)Model,page => Url.Action("Index", new { page }))
 
 </div>
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+

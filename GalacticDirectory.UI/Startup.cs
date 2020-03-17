@@ -8,8 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Polly;
-
 using GalacticDirectory.UI.Models.Helpers;
+using GalacticDirectory.DAL.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace GalacticDirectory.UI
 {
@@ -26,7 +27,10 @@ namespace GalacticDirectory.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-          //  services.Add(new ServiceDescriptor(typeof(Models.Helpers.IGalacticHelper), new GalacticAPIHelper()));
+            services.AddDbContext<StarWarDBContext>(options =>
+                                options.UseSqlServer(Configuration.GetConnectionString("StarWarCon")));
+
+            //  services.Add(new ServiceDescriptor(typeof(Models.Helpers.IGalacticHelper), new GalacticAPIHelper()));
             // Now let's register an API client for your AJAX call.
             // Includes the configuration - base address & content type.
             services.AddHttpClient("API Client", client =>
