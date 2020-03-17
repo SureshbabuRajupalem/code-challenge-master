@@ -8,12 +8,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F5A9147E-C4BD-465C-A439-12B7FAA04381}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		EF Core Migration Steps.txt = EF Core Migration Steps.txt
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GalacticDirectory.UI", "GalacticDirectory.UI\GalacticDirectory.UI.csproj", "{CE944698-EED1-4807-A96C-D959E187F9B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GalacticDirectory.DAL", "GalacticDirectory.DAL\GalacticDirectory.DAL.csproj", "{08E5BE93-22A4-48B8-BE5B-C2FA3A886DFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GalacticDirectory.DAL", "GalacticDirectory.DAL\GalacticDirectory.DAL.csproj", "{08E5BE93-22A4-48B8-BE5B-C2FA3A886DFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
