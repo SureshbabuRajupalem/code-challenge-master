@@ -12,6 +12,8 @@ using Newtonsoft.Json;
 using X.PagedList;
 using GalacticDirectory.DAL.EFModels;
 using GalacticDirectory.DAL.Services;
+using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 
 namespace GalacticDirectory.UI.Controllers
 {
@@ -20,6 +22,7 @@ namespace GalacticDirectory.UI.Controllers
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly StarWarDBContext _SWDBContext;
         private readonly IRepository<DAL.EFModels.PeopleModel> _reppm;
+        private readonly ILogger<PeopleController> _logger;
         DAL.EFModels.PeopleModel _pm;
         //private string BaseUri="/api/people/";
         //private string Uri = string.Empty;
@@ -29,8 +32,9 @@ namespace GalacticDirectory.UI.Controllers
         private int pageNumber;
 
 
-        public PeopleController(IHttpClientFactory httpClientFactory, StarWarDBContext SWDBContext)
+        public PeopleController(ILogger<PeopleController> logger, IHttpClientFactory httpClientFactory, StarWarDBContext SWDBContext)
         {
+            _logger = logger; 
             _SWDBContext = SWDBContext;
             _reppm = new Repository<DAL.EFModels.PeopleModel>(_SWDBContext);
             _pm = new DAL.EFModels.PeopleModel();
@@ -124,6 +128,11 @@ namespace GalacticDirectory.UI.Controllers
             {
                 return View();
             }
+        }
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
